@@ -1,0 +1,90 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f7a7997b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Binary search performs faster than linear search because it reduces the search space exponentially by half at each step, while linear search goes through each element one by one. For large datasets, the difference in performance can be significant, making binary search a preferred choice when working with sorted data.\n",
+    "-Much faster than linear search for large datasets due to its logarithmic time complexity.\n",
+    "- Reduces the problem size by half with each iteration.\n",
+    "-Binary search has a space complexity of O(1) since it does not require additional memory allocation beyond a few variables to store indices and boundaries.\n",
+    "-Binary search is not only limited to searching for elements in arrays but can also be applied to other data structures such as trees and graphs."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e1ed58bd",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the dataset\n",
+    "df = pd.read_csv('/Users/wkhuz/Downloads/Test2.csv/API_EN.URB.MCTY.TL.ZS_DS2_en_csv_v2_327449.csv',sep=',', on_bad_lines='skip', skiprows=4')\n",
+    "\n",
+    "# Filter the dataset to include a specific column for searching\n",
+    "values = df['Value'].tolist()\n",
+    "\n",
+    "# Define the target value to search\n",
+    "target_value = 25.0\n",
+    "\n",
+    "# Linear Search Function\n",
+    "def linear_search(arr, target):\n",
+    "    for index, element in enumerate(arr):\n",
+    "        if element == target:\n",
+    "            return index\n",
+    "    return -1\n",
+    "\n",
+    "# Binary Search Function (requires sorted array)\n",
+    "def binary_search(arr, target):\n",
+    "    low = 0\n",
+    "    high = len(arr) - 1\n",
+    "    while low <= high:\n",
+    "        mid = (low + high) // 2\n",
+    "        if arr[mid] == target:\n",
+    "            return mid\n",
+    "        elif arr[mid] < target:\n",
+    "            low = mid + 1\n",
+    "        else:\n",
+    "            high = mid - 1\n",
+    "    return -1\n",
+    "\n",
+    "# Perform Linear Search\n",
+    "linear_result = linear_search(values, target_value)\n",
+    "print(f\"Linear Search: Element found at index {linear_result}\" if linear_result != -1 else \"Linear Search: Element not found\")\n",
+    "\n",
+    "# Sort the values for Binary Search\n",
+    "sorted_values = sorted(values)\n",
+    "\n",
+    "# Perform Binary Search\n",
+    "binary_result = binary_search(sorted_values, target_value)\n",
+    "print(f\"Binary Search: Element found at index {binary_result}\" if binary_result != -1 else \"Binary Search: Element not found\")\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
